@@ -1,11 +1,15 @@
 import '~/styles/globals.css'
 
-import { GeistSans } from 'geist/font/sans'
 import { type Metadata } from 'next'
 import { ThemeProvider } from '~/components/providers/theme-provider'
+import { Inter } from 'next/font/google'
 
 import { TRPCReactProvider } from '~/trpc/react'
 import Navbar from '~/components/navbar'
+import { cn } from '~/lib/utils'
+import { Toaster } from 'sonner'
+
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'ProDuctiF',
@@ -17,7 +21,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={GeistSans.variable}>
+    <html lang="en" className={cn('min-h-screen antialiased', inter.className)}>
       <body className="min-h-screen">
         <ThemeProvider
           attribute="class"
@@ -27,6 +31,7 @@ export default function RootLayout({
         >
           <Navbar />
           <TRPCReactProvider>{children}</TRPCReactProvider>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
