@@ -3,7 +3,7 @@ import type { FileRejection } from 'react-dropzone'
 import { toast } from 'sonner'
 import FileUploadRejection from '~/components/file-upload-rejection'
 
-const defaultMaxSize = 16 * 1024 * 1024
+const defaultMaxSize = 32 * 1024 * 1024
 
 type UseUploadPdfProps = {
   maxSize?: number
@@ -35,6 +35,7 @@ const useUploadPdf = ({
     accept: { 'application/pdf': ['.pdf'] },
     maxSize,
     onDrop: handleOnDrop,
+    maxFiles: 16,
   })
 
   return {

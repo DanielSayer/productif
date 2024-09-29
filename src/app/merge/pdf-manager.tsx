@@ -60,6 +60,14 @@ const PdfManager = ({
 
   return (
     <div className="flex w-full flex-col items-center justify-center gap-4">
+      <Button
+        onClick={() => mutateAsync(files.map((x) => x.file))}
+        disabled={files.length < 2}
+        isLoading={isPending}
+        loadingText="Merging PDFs..."
+      >
+        Merge PDFs
+      </Button>
       <Card className="grid min-h-60 w-full grid-cols-2 flex-wrap gap-4 p-4 md:grid-cols-3 lg:grid-cols-4">
         <DndContext
           sensors={sensors}
@@ -95,14 +103,6 @@ const PdfManager = ({
           </SortableContext>
         </DndContext>
       </Card>
-      <Button
-        onClick={() => mutateAsync(files.map((x) => x.file))}
-        disabled={files.length < 2}
-        isLoading={isPending}
-        loadingText="Merging PDFs..."
-      >
-        Merge PDFs
-      </Button>
     </div>
   )
 }

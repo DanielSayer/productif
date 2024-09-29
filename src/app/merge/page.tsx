@@ -26,7 +26,14 @@ const PdfMerger = () => {
   const [result, setResult] = useState<string | null>(null)
 
   const handleUploadFiles = (acceptedFiles: File[]) => {
-    acceptedFiles.forEach((file) => {
+    let sanitizedFiles = [...acceptedFiles]
+    if (files.length + acceptedFiles.length > 16) {
+      toast.error('You can only merge up to 16 PDFs at a time')
+      const numberOfFilesRemaining = 16 - files.length
+      sanitizedFiles = acceptedFiles.slice(0, numberOfFilesRemaining)
+    }
+
+    sanitizedFiles.forEach((file) => {
       const reader = new FileReader()
       const id = crypto.randomUUID()
       reader.onload = () => {

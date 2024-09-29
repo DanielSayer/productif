@@ -33,7 +33,7 @@ export const PdfDropzone = ({ handleUploadFiles }: PdfDropzoneProps) => {
               <span className="font-semibold">Click to upload</span> or drap and
               drop files
             </p>
-            <p className="text-xs text-muted-foreground">PDF (up to 16 MB)</p>
+            <p className="text-xs text-muted-foreground">PDF (up to 32 MB)</p>
           </div>
 
           <input
