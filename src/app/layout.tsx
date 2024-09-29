@@ -21,7 +21,10 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={cn('min-h-screen antialiased', inter.className)}>
+    <html
+      lang="en"
+      className={cn('min-h-screen bg-background antialiased', inter.className)}
+    >
       <body className="min-h-screen">
         <Providers>
           <Navbar />

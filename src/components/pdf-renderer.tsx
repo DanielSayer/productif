@@ -40,7 +40,9 @@ const PdfRenderer = ({ src }: PdfRendererProps) => {
   const { width, ref } = useResizeDetector()
 
   const CustomPageValidator = z.object({
-    page: z.number().refine((num) => num > 0 && num <= numPages!),
+    page: z
+      .string()
+      .refine((num) => Number(num) > 0 && Number(num) <= numPages!),
   })
   type TCustomPageValidator = z.infer<typeof CustomPageValidator>
 
@@ -50,7 +52,7 @@ const PdfRenderer = ({ src }: PdfRendererProps) => {
     formState: { errors },
     setValue,
   } = useForm<TCustomPageValidator>({
-    defaultValues: { page: 1 },
+    defaultValues: { page: '1' },
     resolver: zodResolver(CustomPageValidator),
   })
 
@@ -63,23 +65,23 @@ const PdfRenderer = ({ src }: PdfRendererProps) => {
   const isLoading = renderedScale !== pdfScale
 
   const handlePageSubmit = ({ page }: TCustomPageValidator) => {
-    setCurrPage(page)
+    setCurrPage(Number(page))
     setValue('page', page)
   }
 
   const incrementPage = () => {
     setCurrPage((prev) => (prev + 1 > numPages! ? numPages! : prev + 1))
-    setValue('page', currPage + 1)
+    setValue('page', `${currPage + 1}`)
   }
 
   const decrementPage = () => {
     setCurrPage((prev) => (prev - 1 > 1 ? prev - 1 : 1))
-    setValue('page', currPage - 1)
+    setValue('page', `${currPage - 1}`)
   }
 
   return (
-    <div className="flex w-full flex-col items-center rounded-md bg-white shadow">
-      <div className="flex h-14 w-full items-center justify-between border-b border-zinc-200 px-2">
+    <div className="flex w-full flex-col items-center rounded-md shadow">
+      <div className="flex h-14 w-full items-center justify-between rounded-t border border-muted-foreground px-2">
         <div className="flex items-center gap-1.5">
           <Button
             variant="ghost"
@@ -95,7 +97,7 @@ const PdfRenderer = ({ src }: PdfRendererProps) => {
               {...register('page')}
               className={cn(
                 'h-8 w-12',
-                errors.page && 'focus-visible:ring-destructive-500',
+                errors.page && 'focus-visible:ring-red-500',
               )}
               onKeyDown={async (e) => {
                 if (e.key === 'Enter') {
@@ -103,7 +105,7 @@ const PdfRenderer = ({ src }: PdfRendererProps) => {
                 }
               }}
             />
-            <p className="space-x-1 text-sm text-zinc-700">
+            <p className="space-x-1 text-sm text-accent-foreground">
               <span>/</span>
               <span>{numPages ?? 'x'}</span>
             </p>
@@ -150,7 +152,7 @@ const PdfRenderer = ({ src }: PdfRendererProps) => {
         </div>
       </div>
 
-      <div className="max-h-screen w-full flex-1">
+      <div className="max-h-screen w-full flex-1 border-b border-e border-s border-muted-foreground">
         <SimpleBar autoHide={false} className="max-h-[calc(100vh-10rem)]">
           <div ref={ref}>
             <Document

@@ -3,6 +3,8 @@
 import { Cloud } from 'lucide-react'
 import useUploadPdf from '~/hooks/useUploadPdf'
 import { Icons } from './icons'
+import { cn } from '~/lib/utils'
+import { buttonVariants } from './ui/button'
 
 type PdfDropzoneProps = {
   handleUploadFiles: (files: File[]) => void
@@ -55,9 +57,10 @@ export const SmallPdfDropzone = ({ handleUploadFiles }: PdfDropzoneProps) => {
     <div {...getRootProps({ onClick: (e) => e.preventDefault() })}>
       <label
         htmlFor="dropzone-file"
-        className="flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg bg-gray-200 p-2 hover:bg-gray-300"
+        className={cn(buttonVariants(), 'cursor-pointer')}
       >
-        <Icons.add className="h-4 w-4" />
+        <Icons.add className="h-4 w-4 md:me-2" />
+        <span className="hidden md:inline-block">Add more !</span>
         <input
           type="file"
           id="dropzone-file"

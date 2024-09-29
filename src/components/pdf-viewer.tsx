@@ -18,11 +18,11 @@ const PdfViewer = ({ src }: PdfViewerProps) => {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="outline" aria-label="view">
-          <Icons.view className="me-2 h-4 w-4" />
-          View
+          <Icons.view className="h-4 w-4 md:me-2" />
+          <span className="hidden md:inline">View</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="lg:max-w-[70rem]">
+      <DialogContent className="min-h-60 lg:max-w-[70rem]">
         <DialogHeader>
           <DialogTitle className="sr-only">Preview PDF</DialogTitle>
         </DialogHeader>

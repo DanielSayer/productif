@@ -1,11 +1,17 @@
 'use client'
 
-import { useState } from 'react'
-import MaxWidthWrapper from '~/components/max-width-wrapper'
-import { PdfDropzone, SmallPdfDropzone } from '~/components/pdf-dropzone'
-import PdfManager from './pdf-manager'
 import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import { arrayMove } from '@dnd-kit/sortable'
+import { useState } from 'react'
+import { toast } from 'sonner'
+import MaxWidthWrapper from '~/components/max-width-wrapper'
+import { PdfDropzone, SmallPdfDropzone } from '~/components/pdf-dropzone'
+import PdfRenderer from '~/components/pdf-renderer'
+import { downloadPdf } from '~/lib/download-pdf'
+import PdfDownloadForm from './pdf-download-form'
+import PdfManager from './pdf-manager'
+import { Button } from '~/components/ui/button'
+import { Icons } from '~/components/icons'
 
 export type UploadedFile = {
   id: string
@@ -17,6 +23,7 @@ const PdfMerger = () => {
   const [isFirstFile, setIsFirstFile] = useState(true)
   const [files, setFiles] = useState<UploadedFile[]>([])
   const [activeId, setActiveId] = useState<string | null>(null)
+  const [result, setResult] = useState<string | null>(null)
 
   const handleUploadFiles = (acceptedFiles: File[]) => {
     acceptedFiles.forEach((file) => {
@@ -56,6 +63,25 @@ const PdfMerger = () => {
     setFiles((prev) => prev.filter((f) => f.id !== id))
   }
 
+  const updateResult = (result: Blob) => {
+    setResult(URL.createObjectURL(result))
+  }
+
+  const handleDownloadResult = (name: string | undefined) => {
+    if (!result) {
+      toast.error('No result to download')
+      return
+    }
+
+    downloadPdf(result, name)
+    toast.success('Thank you for using ProDuctiF!')
+  }
+
+  const reset = () => {
+    setFiles([])
+    setResult(null)
+  }
+
   if (isFirstFile) {
     return (
       <MaxWidthWrapper>
@@ -70,15 +96,36 @@ const PdfMerger = () => {
     )
   }
 
+  if (result) {
+    return (
+      <MaxWidthWrapper className="pb-16">
+        <div className="flex flex-col items-center justify-center gap-2 py-8 text-accent-foreground">
+          <h1 className="text-center text-3xl">Merge PDFs</h1>
+          <p className="text-center text-lg">
+            Your PDFs have been merged successfully!
+          </p>
+          <p className="text-center text-lg">Preview your merged PDF below.</p>
+          <PdfDownloadForm onSubmit={handleDownloadResult} />
+          <Button variant="outline" aria-label="Start over" onClick={reset}>
+            <Icons.rotate className="me-2 h-4 w-4" />
+            Start Over
+          </Button>
+        </div>
+        <PdfRenderer src={result} />
+      </MaxWidthWrapper>
+    )
+  }
+
   return (
     <MaxWidthWrapper>
-      <div className="flex flex-col items-center justify-center gap-4 py-16 text-accent-foreground">
-        <h1 className="text-center text-3xl">Merge PDFs</h1>
-        <p className="text-center text-lg">Manage your PDF order below.</p>
-        <span className="flex items-center gap-1.5">
-          Or add more
+      <div className="relative">
+        <div className="flex flex-col items-center justify-center gap-2 py-8 text-accent-foreground">
+          <h1 className="text-center text-3xl">Merge PDFs</h1>
+          <p className="text-center text-lg">Manage your PDF order below.</p>
+        </div>
+        <div className="absolute right-0 top-1/3">
           <SmallPdfDropzone handleUploadFiles={handleUploadFiles} />
-        </span>
+        </div>
       </div>
       <PdfManager
         files={files}
@@ -86,6 +133,7 @@ const PdfMerger = () => {
         handleDragEnd={handleDragEnd}
         handleDragStart={handleDragStart}
         handleDeleteFile={handleDeleteFile}
+        updateResult={updateResult}
       />
     </MaxWidthWrapper>
   )

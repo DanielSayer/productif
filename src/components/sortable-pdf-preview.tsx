@@ -45,13 +45,14 @@ const SortablePdfPreview = ({
           </CardContent>
         </Handle>
         <CardFooter>
-          <div className="mt-2 flex w-full justify-between">
+          <div className="mt-2 flex w-full flex-wrap justify-between gap-2">
             <Button
               variant="outline"
               aria-label="delete"
               onClick={() => handleDeleteFile?.(file.id)}
             >
-              <Icons.remove className="me-2 h-4 w-4" /> Delete
+              <Icons.remove className="h-4 w-4 md:me-2" />
+              <span className="hidden md:inline">Delete</span>
             </Button>
             <PdfViewer src={file.data} />
           </div>
