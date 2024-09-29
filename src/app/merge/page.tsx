@@ -4,8 +4,11 @@ import { useState } from 'react'
 import MaxWidthWrapper from '~/components/max-width-wrapper'
 import PdfDropzone from '~/components/pdf-dropzone'
 import PdfManager from './pdf-manager'
+import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
+import { arrayMove } from '@dnd-kit/sortable'
 
 export type UploadedFile = {
+  id: string
   file: File
   data: string
 }
@@ -13,16 +16,40 @@ export type UploadedFile = {
 const PdfMerger = () => {
   const [isFirstFile, setIsFirstFile] = useState(true)
   const [files, setFiles] = useState<UploadedFile[]>([])
+  const [activeId, setActiveId] = useState<string | null>(null)
 
   const handleUploadFiles = (acceptedFiles: File[]) => {
     acceptedFiles.forEach((file) => {
       const reader = new FileReader()
+      const id = crypto.randomUUID()
       reader.onload = () => {
-        setFiles((prev) => [...prev, { file, data: reader.result as string }])
+        setFiles((prev) => [
+          ...prev,
+          { id, file, data: reader.result as string },
+        ])
       }
       reader.readAsDataURL(file)
     })
     setIsFirstFile(false)
+  }
+
+  const handleDragStart = (event: DragStartEvent) => {
+    setActiveId(`${event.active.id}`)
+  }
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    setActiveId(null)
+    const { active, over } = event
+    if (!active || !over) return
+
+    if (active.id !== over.id) {
+      setFiles((prev) => {
+        const oldIndex = prev.findIndex((f) => f.id === active.id)
+        const newIndex = prev.findIndex((f) => f.id === over.id)
+
+        return arrayMove(prev, oldIndex, newIndex)
+      })
+    }
   }
 
   if (isFirstFile) {
@@ -45,7 +72,12 @@ const PdfMerger = () => {
         <h1 className="text-center text-3xl">Merge PDFs</h1>
         <p className="text-center text-lg">Manage your PDF order below.</p>
       </div>
-      <PdfManager files={files} />
+      <PdfManager
+        files={files}
+        activeId={activeId}
+        handleDragEnd={handleDragEnd}
+        handleDragStart={handleDragStart}
+      />
     </MaxWidthWrapper>
   )
 }
