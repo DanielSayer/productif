@@ -25,10 +25,7 @@ import {
 import { Input } from './ui/input'
 import PdfLoader from './pdf-loader'
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/legacy/build/pdf.worker.min.mjs',
-  import.meta.url,
-).toString()
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 
 const pdfScales = [25, 50, 100, 150, 200, 250]
 

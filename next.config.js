@@ -8,6 +8,13 @@ const config = {
 
     return config
   },
+  experimental: {
+    turbo: {
+      resolveAlias: {
+        canvas: './empty-module.ts',
+      },
+    },
+  },
 }
 
 export default config
