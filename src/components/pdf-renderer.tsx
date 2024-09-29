@@ -25,7 +25,7 @@ import {
 import { Input } from './ui/input'
 import PdfLoader from './pdf-loader'
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`
 
 const pdfScales = [25, 50, 100, 150, 200, 250]
 
