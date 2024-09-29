@@ -4,7 +4,6 @@ import { type Metadata } from 'next'
 import { ThemeProvider } from '~/components/providers/theme-provider'
 import { Inter } from 'next/font/google'
 
-import { TRPCReactProvider } from '~/trpc/react'
 import Navbar from '~/components/navbar'
 import { cn } from '~/lib/utils'
 import { Toaster } from 'sonner'
@@ -30,7 +29,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <TRPCReactProvider>{children}</TRPCReactProvider>
+          {children}
           <Toaster />
         </ThemeProvider>
       </body>
