@@ -9,25 +9,28 @@ type SortableProps = {
 }
 
 const Sortable = ({ id, children }: SortableProps) => {
-  const {
-    attributes,
-    listeners,
-    isDragging,
-    setNodeRef,
-    transition,
-    transform,
-  } = useSortable({
+  const { isDragging, setNodeRef, transition, transform } = useSortable({
     id,
   })
 
   return (
     <div
       ref={setNodeRef}
-      {...attributes}
-      {...listeners}
       className={cn({ 'opacity-30': isDragging })}
       style={{ transition, transform: CSS.Transform.toString(transform) }}
     >
+      {children}
+    </div>
+  )
+}
+
+export const Handle = ({ id, children }: SortableProps) => {
+  const { attributes, listeners } = useSortable({
+    id,
+  })
+
+  return (
+    <div {...attributes} {...listeners}>
       {children}
     </div>
   )

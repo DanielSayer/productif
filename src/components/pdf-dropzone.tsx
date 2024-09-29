@@ -1,36 +1,16 @@
 'use client'
 
 import { Cloud } from 'lucide-react'
-import { type FileRejection, useDropzone } from 'react-dropzone'
-import { toast } from 'sonner'
-import FileUploadRejection from './file-upload-rejection'
+import useUploadPdf from '~/hooks/useUploadPdf'
+import { Icons } from './icons'
 
 type PdfDropzoneProps = {
   handleUploadFiles: (files: File[]) => void
 }
 
-const PdfDropzone = ({ handleUploadFiles }: PdfDropzoneProps) => {
-  const handleOnDrop = (
-    acceptedFiles: File[],
-    rejectedFiles: FileRejection[],
-  ) => {
-    if (rejectedFiles.length > 0) {
-      toast.error(
-        <FileUploadRejection
-          rejectedFiles={rejectedFiles.map((f) => ({
-            name: f.file.name,
-            reason: f.errors[0]?.message ?? 'Something went wrong',
-          }))}
-        />,
-      )
-    }
-    handleUploadFiles(acceptedFiles)
-  }
-
-  const { getRootProps, getInputProps } = useDropzone({
-    accept: { 'application/pdf': ['.pdf'] },
-    maxSize: 16 * 1024 * 1024,
-    onDrop: handleOnDrop,
+export const PdfDropzone = ({ handleUploadFiles }: PdfDropzoneProps) => {
+  const { getRootProps, getInputProps } = useUploadPdf({
+    handleUploadFiles,
   })
 
   return (
@@ -66,4 +46,25 @@ const PdfDropzone = ({ handleUploadFiles }: PdfDropzoneProps) => {
   )
 }
 
-export default PdfDropzone
+export const SmallPdfDropzone = ({ handleUploadFiles }: PdfDropzoneProps) => {
+  const { getRootProps, getInputProps } = useUploadPdf({
+    handleUploadFiles,
+  })
+
+  return (
+    <div {...getRootProps({ onClick: (e) => e.preventDefault() })}>
+      <label
+        htmlFor="dropzone-file"
+        className="flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg bg-gray-200 p-2 hover:bg-gray-300"
+      >
+        <Icons.add className="h-4 w-4" />
+        <input
+          type="file"
+          id="dropzone-file"
+          className="hidden"
+          {...getInputProps()}
+        />
+      </label>
+    </div>
+  )
+}

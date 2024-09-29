@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import MaxWidthWrapper from '~/components/max-width-wrapper'
-import PdfDropzone from '~/components/pdf-dropzone'
+import { PdfDropzone, SmallPdfDropzone } from '~/components/pdf-dropzone'
 import PdfManager from './pdf-manager'
 import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import { arrayMove } from '@dnd-kit/sortable'
@@ -52,6 +52,10 @@ const PdfMerger = () => {
     }
   }
 
+  const handleDeleteFile = (id: string) => {
+    setFiles((prev) => prev.filter((f) => f.id !== id))
+  }
+
   if (isFirstFile) {
     return (
       <MaxWidthWrapper>
@@ -71,12 +75,17 @@ const PdfMerger = () => {
       <div className="flex flex-col items-center justify-center gap-4 py-16 text-accent-foreground">
         <h1 className="text-center text-3xl">Merge PDFs</h1>
         <p className="text-center text-lg">Manage your PDF order below.</p>
+        <span className="flex items-center gap-1.5">
+          Or add more
+          <SmallPdfDropzone handleUploadFiles={handleUploadFiles} />
+        </span>
       </div>
       <PdfManager
         files={files}
         activeId={activeId}
         handleDragEnd={handleDragEnd}
         handleDragStart={handleDragStart}
+        handleDeleteFile={handleDeleteFile}
       />
     </MaxWidthWrapper>
   )

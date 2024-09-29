@@ -1,15 +1,23 @@
 import type { UploadedFile } from '~/app/merge/page'
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card'
 import PdfPreview from './pdf-preview'
 import PdfViewer from './pdf-viewer'
 import { useLayoutEffect, useRef, useState } from 'react'
-import Sortable from './sortable'
+import Sortable, { Handle } from './sortable'
+import { Button } from './ui/button'
+import { Icons } from './icons'
 
 type SortablePdfPreviewProps = {
+  index: string
   file: UploadedFile
+  handleDeleteFile?: (id: string) => void
 }
 
-const SortablePdfPreview = ({ file }: SortablePdfPreviewProps) => {
+const SortablePdfPreview = ({
+  index,
+  file,
+  handleDeleteFile,
+}: SortablePdfPreviewProps) => {
   const pdfPreviewRef = useRef<HTMLDivElement>(null)
   const [previewWidth, setPreviewWidth] = useState<number | null>(null)
 
@@ -21,20 +29,33 @@ const SortablePdfPreview = ({ file }: SortablePdfPreviewProps) => {
 
   return (
     <Sortable id={file.id}>
-      <Card key={file.file.name}>
-        <CardHeader>
-          <CardTitle className="truncate">{file.file.name}</CardTitle>
-        </CardHeader>
-        <CardContent className="pb-2">
-          <div ref={pdfPreviewRef}>
-            {previewWidth && (
-              <PdfPreview src={file.data} width={previewWidth} />
-            )}
-          </div>
-          <div className="mt-2 flex w-full justify-center">
+      <Card key={file.id}>
+        <Handle id={file.id}>
+          <CardHeader>
+            <CardTitle className="truncate">
+              {index}. {file.file.name}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="pb-2">
+            <div ref={pdfPreviewRef}>
+              {previewWidth && (
+                <PdfPreview src={file.data} width={previewWidth} />
+              )}
+            </div>
+          </CardContent>
+        </Handle>
+        <CardFooter>
+          <div className="mt-2 flex w-full justify-between">
+            <Button
+              variant="outline"
+              aria-label="delete"
+              onClick={() => handleDeleteFile?.(file.id)}
+            >
+              <Icons.remove className="me-2 h-4 w-4" /> Delete
+            </Button>
             <PdfViewer src={file.data} />
           </div>
-        </CardContent>
+        </CardFooter>
       </Card>
     </Sortable>
   )

@@ -1,13 +1,13 @@
-import '~/styles/globals.css'
 import 'simplebar-react/dist/simplebar.min.css'
+import '~/styles/globals.css'
 
 import { type Metadata } from 'next'
-import { ThemeProvider } from '~/components/providers/theme-provider'
 import { Inter } from 'next/font/google'
 
-import Navbar from '~/components/navbar'
-import { cn } from '~/lib/utils'
 import { Toaster } from 'sonner'
+import Navbar from '~/components/navbar'
+import Providers from '~/components/providers/providers'
+import { cn } from '~/lib/utils'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,16 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn('min-h-screen antialiased', inter.className)}>
       <body className="min-h-screen">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <Providers>
           <Navbar />
           {children}
           <Toaster />
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   )

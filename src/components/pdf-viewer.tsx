@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Icons } from './icons'
 import PdfRenderer from './pdf-renderer'
 import { Button } from './ui/button'
@@ -15,20 +14,12 @@ type PdfViewerProps = {
 }
 
 const PdfViewer = ({ src }: PdfViewerProps) => {
-  const [isOpen, setIsOpen] = useState(false)
-
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog>
       <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={(e) => {
-            e.preventDefault()
-            setIsOpen(true)
-          }}
-        >
-          <Icons.view className="h-4 w-4" />
+        <Button variant="outline" aria-label="view">
+          <Icons.view className="me-2 h-4 w-4" />
+          View
         </Button>
       </DialogTrigger>
       <DialogContent className="lg:max-w-[70rem]">
