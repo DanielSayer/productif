@@ -23,6 +23,7 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
 import { Input } from './ui/input'
+import PdfLoader from './pdf-loader'
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/legacy/build/pdf.worker.min.mjs',
@@ -187,14 +188,6 @@ const PdfRenderer = ({ src }: PdfRendererProps) => {
           </div>
         </SimpleBar>
       </div>
-    </div>
-  )
-}
-
-const PdfLoader = () => {
-  return (
-    <div className="flex justify-center">
-      <Icons.loader className="my-24 h-6 w-6 animate-spin" />
     </div>
   )
 }
