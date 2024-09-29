@@ -17,7 +17,7 @@ export const PdfDropzone = ({ handleUploadFiles }: PdfDropzoneProps) => {
 
   return (
     <div
-      className="flex h-full w-full items-center justify-center rounded-lg bg-gray-50 p-3 hover:bg-gray-100"
+      className="flex h-full w-full items-center justify-center rounded-lg bg-accent p-3 hover:bg-accent-foreground/10"
       {...getRootProps({
         onClick: (e) => e.preventDefault(),
       })}
@@ -25,15 +25,15 @@ export const PdfDropzone = ({ handleUploadFiles }: PdfDropzoneProps) => {
       <div className="flex h-full w-full items-center justify-center rounded-md border border-dashed border-muted-foreground">
         <label
           htmlFor="dropzone-file"
-          className="flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg bg-gray-200 hover:bg-gray-300"
+          className="flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg bg-accent hover:bg-accent-foreground/5"
         >
           <div className="flex flex-col items-center justify-center py-40">
-            <Cloud className="mb-2 h-6 w-6 text-zinc-500" />
-            <p className="mb-2 text-sm text-zinc-700">
+            <Cloud className="mb-2 h-6 w-6 text-muted-foreground" />
+            <p className="mb-2 text-sm text-accent-foreground">
               <span className="font-semibold">Click to upload</span> or drap and
               drop files
             </p>
-            <p className="text-xs text-zinc-500">PDF (up to 16 MB)</p>
+            <p className="text-xs text-muted-foreground">PDF (up to 16 MB)</p>
           </div>
 
           <input

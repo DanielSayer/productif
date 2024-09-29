@@ -8,7 +8,7 @@ import {
   FormMessage,
 } from '~/components/ui/form'
 import { Input } from '~/components/ui/input'
-import usePdfNameForm, { PdfName } from '~/hooks/usePdfNameForm'
+import usePdfNameForm, { type PdfName } from '~/hooks/usePdfNameForm'
 
 type PdfDownloadFormProps = {
   onSubmit: (name: string | undefined) => void

@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import MaxWidthWrapper from './max-width-wrapper'
 import { ThemeToggle } from './theme-toggle'
+import { buttonVariants } from './ui/button'
 
 const Navbar = () => {
   return (
@@ -10,10 +11,16 @@ const Navbar = () => {
       <MaxWidthWrapper>
         <div className="flex h-14 items-center justify-between">
           <Link href="/" className="z-40 flex font-semibold">
-            <span className="flex items-center font-normal">ProDuctiF</span>
+            <span className="flex items-center font-semibold">ProDuctiF</span>
           </Link>
 
           <div className="hidden items-center space-x-4 sm:flex">
+            <Link
+              href="/merge"
+              className={buttonVariants({ variant: 'ghost' })}
+            >
+              Merge PDFs
+            </Link>
             <ThemeToggle />
           </div>
         </div>

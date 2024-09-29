@@ -1,29 +1,53 @@
-# Create T3 App
+# Productif: PDF Tool Suite
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+## Overview
 
-## What's next? How do I make an app with this?
+Productif is a comprehensive PDF tool suite designed to provide a wide range of PDF manipulation features, including merging, splitting, and compressing PDFs. Built with modern technologies like Next.js and managed via pnpm, Productif is focused on performance, scalability, and user-friendly operation.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Features
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+Merge PDFs: Combine multiple PDF files into a single document.
+Split PDFs: Extract pages from PDFs and create separate files.
+Compress PDFs: Reduce the file size of PDFs without compromising quality.
+Preview PDFs: View and navigate PDFs directly within the app.
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Technology Stack
 
-## Learn More
+- Next.js: For building a highly efficient and scalable front-end.
+- pnpm: Used for package management to ensure fast, reliable dependency installation and management.
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## Installation
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+> Prerequisites
+>
+> > Node.js >= 14.x
+>
+> > pnpm = 9.5.0
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+### Steps
 
-## How do I deploy this?
+Clone the repository:
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+```bash
+git clone https://github.com/DanielSayer/productif.git
+```
+
+Install dependencies using pnpm:
+
+```bash
+pnpm install
+```
+
+Run the development server:
+
+```bash
+pnpm dev
+```
+
+## Scripts
+
+- `pnpm dev`: Runs the app in development mode.
+- `pnpm build`: Builds the app for production.
+- `pnpm start`: Starts the production server.
+- `pnpm lint`: Runs the linter.
+- `pnpm format`: Formats the code using Prettier.

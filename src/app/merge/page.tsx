@@ -4,14 +4,14 @@ import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import { arrayMove } from '@dnd-kit/sortable'
 import { useState } from 'react'
 import { toast } from 'sonner'
+import { Icons } from '~/components/icons'
 import MaxWidthWrapper from '~/components/max-width-wrapper'
 import { PdfDropzone, SmallPdfDropzone } from '~/components/pdf-dropzone'
 import PdfRenderer from '~/components/pdf-renderer'
+import { Button } from '~/components/ui/button'
 import { downloadPdf } from '~/lib/download-pdf'
 import PdfDownloadForm from './pdf-download-form'
 import PdfManager from './pdf-manager'
-import { Button } from '~/components/ui/button'
-import { Icons } from '~/components/icons'
 
 export type UploadedFile = {
   id: string
@@ -121,7 +121,9 @@ const PdfMerger = () => {
       <div className="relative">
         <div className="flex flex-col items-center justify-center gap-2 py-8 text-accent-foreground">
           <h1 className="text-center text-3xl">Merge PDFs</h1>
-          <p className="text-center text-lg">Manage your PDF order below.</p>
+          <p className="text-center text-lg">
+            Manage the order of your PDF merge below.
+          </p>
         </div>
         <div className="absolute right-0 top-1/3">
           <SmallPdfDropzone handleUploadFiles={handleUploadFiles} />
