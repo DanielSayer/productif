@@ -5,6 +5,7 @@ import type { UploadedFile } from './page'
 import { Button } from '~/components/ui/button'
 import PdfPreview from '~/components/pdf-preview'
 import { useLayoutEffect, useRef, useState } from 'react'
+import PdfViewer from '~/components/pdf-viewer'
 
 type PdfManagerProps = {
   files: UploadedFile[]
@@ -28,11 +29,14 @@ const PdfManager = ({ files }: PdfManagerProps) => {
             <CardHeader>
               <CardTitle className="truncate">{file.file.name}</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pb-2">
               <div ref={pdfPreviewRef}>
                 {previewWidth && (
                   <PdfPreview src={file.data} width={previewWidth} />
                 )}
+              </div>
+              <div className="mt-2 flex w-full justify-center">
+                <PdfViewer src={file.data} />
               </div>
             </CardContent>
           </Card>

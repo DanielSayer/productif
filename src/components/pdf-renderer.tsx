@@ -63,7 +63,7 @@ const PdfRenderer = ({ src }: PdfRendererProps) => {
   const isLoading = renderedScale !== pdfScale
 
   const handlePageSubmit = ({ page }: TCustomPageValidator) => {
-    setCurrPage(Number(page))
+    setCurrPage(page)
     setValue('page', page)
   }
 
@@ -159,7 +159,7 @@ const PdfRenderer = ({ src }: PdfRendererProps) => {
                 toast.error('Error loading PDF')
               }}
               file={src}
-              className="max-h-full"
+              className="max-h-[calc(100vh-10rem)]"
               onLoadSuccess={({ numPages }) => {
                 setNumPages(numPages)
               }}

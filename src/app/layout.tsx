@@ -1,4 +1,5 @@
 import '~/styles/globals.css'
+import 'simplebar-react/dist/simplebar.min.css'
 
 import { type Metadata } from 'next'
 import { ThemeProvider } from '~/components/providers/theme-provider'
