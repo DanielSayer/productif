@@ -15,10 +15,10 @@ export default function Home() {
           Handle all your <span className="text-primary">pdf needs</span> in
           seconds.
         </h1>
-        <p className="mt-5 max-w-prose text-zinc-700 sm:text-lg">
+        <p className="mt-5 max-w-prose text-accent-foreground sm:text-lg">
           ProDuctiF is a free to use, all in one pdf toolkit.
         </p>
-        <p className="max-w-prose text-zinc-700 sm:text-lg">
+        <p className="max-w-prose text-accent-foreground sm:text-lg">
           No accounts, no limits, no hidden fees, no data stored.
         </p>
       </MaxWidthWrapper>
